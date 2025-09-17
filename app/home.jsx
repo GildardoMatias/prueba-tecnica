@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { deleteTask, getTasksByUserId } from '../controllers/tasks.controller';
-import { getJsonObject } from '../functions/functions';
+import { getJsonObject, logout } from '../functions/functions';
 import { estilos } from '../styles/styles';
 
 export default function Home() {
@@ -35,7 +35,7 @@ export default function Home() {
                 break;
         }
     };
-    
+
     const _deleteTask = async (taskId) => {
         const deleted = await deleteTask(taskId)
         if (deleted.changes === 1) {
@@ -61,6 +61,7 @@ export default function Home() {
 
     useFocusEffect(
         useCallback(() => {
+            console.log('----- Focused -----------------')
             if (userData && userData.id)
                 getTasksByUserId(userData.id).then(setAllTasks)
         }, []),
@@ -75,7 +76,9 @@ export default function Home() {
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text style={estilos.title}>Lista de Tareas</Text>
-                <Text>Cerrar sesión</Text>
+                <TouchableOpacity onPress={logout}>
+                    <Text>Cerrar sesión</Text>
+                </TouchableOpacity>
             </View>
 
             <View style={{ height: 24 }}></View>
@@ -85,10 +88,10 @@ export default function Home() {
 
                 {
                     allTasks && allTasks.length ? allTasks.map(task => (
-                        <View style={{ marginBottom: 14, backgroundColor: 'white', padding: 10, borderRadius: 12 }} key={task.id}>
+                        <View style={{ marginBottom: 16, backgroundColor: 'white', padding: 10, borderRadius: 12 }} key={task.id}>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                                <Text>{task.title}</Text>
+                                <Text style={estilos.title}>{task.title}</Text>
                                 <TouchableOpacity onPress={() => setMenuVisible(menuVisible === task.id ? null : task.id)} style={{ width: 16, alignItems: 'center' }}>
                                     <Text style={{ fontWeight: 'bold', fontSize: 18 }}>⋮</Text>
                                 </TouchableOpacity>
@@ -128,8 +131,8 @@ export default function Home() {
 
 
                             <Text>{task.description}</Text>
-                            <Text>{task.createdAt}</Text>
-                            <Text>{task.id}</Text>
+                            <Text style={{ alignSelf: 'flex-end' }}>{new Date(task.createdAt).toLocaleDateString('es-MX')}</Text>
+
                         </View>
                     )) :
                         <View><Text>Aún no hay tareas asignadas</Text></View>

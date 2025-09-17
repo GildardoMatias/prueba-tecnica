@@ -20,8 +20,6 @@ export default function Splash() {
 
     useEffect(() => {
 
-
-
         const timer = setTimeout(async () => {
             const _user = await getJsonObject('userData')
             if (_user) router.replace('home')
@@ -33,8 +31,8 @@ export default function Splash() {
     }, [])
 
     return (
-        <View style={estilos.container}>
-            <Text>Cargando</Text>
+        <View style={{flex: 1, justifyContent: 'center', alignContent:'center', alignItems:'center'}}>
+            <Text style={estilos.title}>Cargando...</Text>
 
 
         </View>

@@ -1,6 +1,8 @@
 import { Link, useRouter } from 'expo-router'
 import { useState } from 'react'
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { BR } from '../components/widgets'
 import { getUserByCredentials } from '../controllers/users.controller'
 import { storeJSON } from '../functions/functions'
 import { estilos } from '../styles/styles'
@@ -28,24 +30,38 @@ export default function InicioSesion() {
     }
 
     return (
-        <View style={estilos.container}>
-            <Text>InicioSesion</Text>
+        <SafeAreaView style={estilos.mainContainer}>
+            <Text style={estilos.bigTitle}>Administración de tareas</Text>
 
-            {
-                userFound && <View>
-                    <Text>{JSON.stringify(userFound)}</Text>
+            <View style={estilos.container}>
+
+                <Text style={estilos.title}>Inicio de sesión</Text>
+                <BR />
+
+                <Text style={estilos.label}>Correo electronico</Text>
+                <TextInput placeholder='ejemplo@direccion.com' value={email} onChangeText={setEmail} keyboardType='email-address' style={estilos.input} />
+                <BR />
+
+                <Text style={estilos.label}>Correo electronico</Text>
+                <TextInput placeholder='Contraseña' value={pass} onChangeText={setPass} style={estilos.input} />
+                <BR />
+
+                <TouchableOpacity onPress={login} style={estilos.button}>
+                    <Text style={estilos.buttonText}>Iniciar Sesión</Text>
+                </TouchableOpacity>
+
+                {/* <TouchableOpacity onPress={() => router.push('register')}>
+<Text>
+    
+</Text>
+                </TouchableOpacity> */}
+                <View style={{ justifyContent: 'center', alignItems: 'center', height: 42 }}>
+                    <Link href='register' style={{ color: '#059e4aff' }}>
+                        Registrarse
+                    </Link>
                 </View>
-            }
+            </View>
 
-            <TextInput placeholder='Usuario' value={email} onChangeText={setEmail} keyboardType='email-address' />
-            <TextInput placeholder='Contraseña' value={pass} onChangeText={setPass} />
-            {/* <TouchableOpacity onPress={() => router.replace('home')}> */}
-            <TouchableOpacity onPress={login}>
-                <Text>Iniciar Sesión</Text>
-            </TouchableOpacity>
-            <Link href='register'>
-                Registrarse
-            </Link>
-        </View>
+        </SafeAreaView>
     )
 }

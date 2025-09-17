@@ -1,8 +1,19 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
 
+const router = useRouter()
+
+export const logout = async () => {
+    try {
+        await AsyncStorage.removeItem('userData')
+        router.replace('login')
+    } catch (error) {
+        alert('Error al cerrar sesión')
+    }
+}
 
 export async function storeJSON(jsonObject, key) {
-    try { 
+    try {
         const jsonValue = JSON.stringify(jsonObject);
         await AsyncStorage.setItem(key, jsonValue);
     } catch (e) {
