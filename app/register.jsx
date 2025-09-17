@@ -1,6 +1,8 @@
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
 import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { BR } from "../components/widgets"
 import { insertUser } from '../controllers/users.controller'
 import { estilos } from '../styles/styles'
 
@@ -20,18 +22,24 @@ export default function Register() {
     }
 
     return (
-        <View style={estilos.container}>
-            <Text>Register</Text>
-            <TextInput placeholder='Nombre de usuario' value={name} onChangeText={setName} />
-            <TextInput placeholder='Correo' value={email} onChangeText={setEmail} keyboardType='email-address' />
-            <TextInput placeholder='Contraseña' value={pass} onChangeText={setPass} />
-            <TouchableOpacity onPress={saveUser}>
-                <Text>Registrar</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.back()}>
-                <Text>Cancelar</Text>
-            </TouchableOpacity>
+        <SafeAreaView style={estilos.mainContainer}>
+            <Text style={estilos.title}>Registrar</Text>
 
-        </View>
+            <View style={{ flex: 1, justifyContent: 'center' }}>
+                <TextInput placeholder='Nombre de usuario' value={name} onChangeText={setName} style={estilos.input} />
+                <TextInput placeholder='Correo' value={email} onChangeText={setEmail} keyboardType='email-address' style={estilos.input} />
+                <TextInput placeholder='Contraseña' value={pass} onChangeText={setPass} style={estilos.input} />
+
+                <BR h={28}/>
+                <TouchableOpacity onPress={saveUser} style={estilos.button}>
+                    <Text style={estilos.buttonText}>Registrar</Text>
+                </TouchableOpacity>
+                <BR h={10}/>
+                <TouchableOpacity onPress={() => router.back()} style={estilos.secButton}>
+                    <Text>Cancelar</Text>
+                </TouchableOpacity>
+            </View>
+
+        </SafeAreaView>
     )
 }

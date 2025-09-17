@@ -33,3 +33,8 @@ export const updateTask = async (taskId, title, description) => {
 
 
 // Delete
+export const deleteTask = async (taskId) => {
+  const result = await db.runAsync('DELETE FROM tasks WHERE id = ?', taskId);
+  console.log('deleted task', result)
+  return result;
+}

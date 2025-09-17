@@ -2,7 +2,7 @@ import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { getTasksByUserId } from '../controllers/tasks.controller';
+import { deleteTask, getTasksByUserId } from '../controllers/tasks.controller';
 import { getJsonObject } from '../functions/functions';
 import { estilos } from '../styles/styles';
 
@@ -24,17 +24,26 @@ export default function Home() {
 
         switch (action) {
             case 'edit':
-                // Lógica para editar
-                // Alert.alert('Editar', `Editando tarea ${task.id}`);
                 router.push({ pathname: 'crear-tarea', params: { ...task } })
                 break;
             case 'delete':
                 // Lógica para eliminar
-                Alert.alert('Eliminar', `¿Eliminar tarea ${task.id}?`);
+                Alert.alert('Eliminar', `¿Eliminar tarea ${task.id}?`, [
+                    { text: 'Cancelar', onPress: () => { }, style: 'cancel' },
+                    { text: 'Eliminar', onPress: () => { _deleteTask(task.id) }, style: 'default' }
+                ]);
                 break;
         }
     };
+    
+    const _deleteTask = async (taskId) => {
+        const deleted = await deleteTask(taskId)
+        if (deleted.changes === 1) {
+            getTasksByUserId(userData.id).then(setAllTasks)
+        } else Alert.alert('Error', 'Error al eliminar la tarea')
+    }
     // Menu
+
 
 
     useEffect(() => {
