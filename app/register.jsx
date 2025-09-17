@@ -1,6 +1,7 @@
+import Feather from '@expo/vector-icons/Feather'
 import { useRouter } from 'expo-router'
 import { useState } from 'react'
-import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, KeyboardAvoidingView, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { BR } from "../components/widgets"
 import { insertUser } from '../controllers/users.controller'
@@ -33,34 +34,45 @@ export default function Register() {
 
     return (
         <SafeAreaView style={estilos.mainContainer}>
-            <Text style={estilos.title}>Registrar nuevo usuario</Text>
+            <KeyboardAvoidingView style={{ flex: 1 }}
+                behavior='height'
+                keyboardVerticalOffset={0} >
+                <Text style={estilos.title}>Registrar nuevo usuario</Text>
+                <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
 
-            <View style={estilos.container}>
+                    <BR />
+                    <Image source={require('../assets/images/register.jpg')} style={{ width: 250, height: 250, borderRadius: 12, alignSelf: 'center' }} />
 
-                <Text style={estilos.label}>Nombre de usuario</Text>
-                <TextInput placeholder='Nombre de usuario' value={name} onChangeText={setName} style={estilos.input} />
-                <BR />
+                    <View style={estilos.container}>
 
-                <Text style={estilos.label}>Correo electronico</Text>
-                <TextInput placeholder='ejemplo@direccion.com' value={email} onChangeText={setEmail} keyboardType='email-address' style={estilos.input} />
-                <BR />
+                        <Feather name="user" size={24} color="black" />
+                        <Text style={estilos.label}>Nombre de usuario</Text>
+                        <TextInput placeholder='Nombre de usuario' value={name} onChangeText={setName} style={estilos.input} />
+                        <BR />
 
-                <Text style={estilos.label}>Contraseña</Text>
-                <TextInput placeholder='Contraseña' value={pass} onChangeText={setPass} style={estilos.input} />
-                <BR />
+                        <Text style={estilos.label}>Correo electronico</Text>
+                        <TextInput placeholder='ejemplo@direccion.com' value={email} onChangeText={setEmail} keyboardType='email-address' style={estilos.input} />
+                        <BR />
 
-                <BR h={28} />
-                <TouchableOpacity onPress={saveUser} style={estilos.button}>
-                    <Text style={estilos.buttonText}>Registrar</Text>
-                </TouchableOpacity>
-                <BR h={10} />
+                        <Text style={estilos.label}>Contraseña</Text>
+                        <TextInput placeholder='Contraseña' value={pass} onChangeText={setPass} style={estilos.input} />
+                        <BR />
 
-                <TouchableOpacity onPress={() => router.back()} style={estilos.secButton}>
-                    <Text>Cancelar</Text>
-                </TouchableOpacity>
+                        <BR h={28} />
+                        <TouchableOpacity onPress={saveUser} style={estilos.button}>
+                            <Feather name="user-plus" size={24} color="white" />
+                            <Text style={estilos.buttonText}>Registrar</Text>
+                        </TouchableOpacity>
+                        <BR h={10} />
 
-            </View>
+                        <TouchableOpacity onPress={() => router.back()} style={estilos.secButton}>
+                            <Text>Cancelar</Text>
+                        </TouchableOpacity>
 
+                    </View>
+
+                </ScrollView>
+            </KeyboardAvoidingView>
         </SafeAreaView>
     )
 }

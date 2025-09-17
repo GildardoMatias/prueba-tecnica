@@ -1,7 +1,9 @@
+import Octicons from '@expo/vector-icons/Octicons';
 import { useFocusEffect, useRouter } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { Alert, ScrollView, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { BR } from '../components/widgets';
 import { deleteTask, getTasksByUserId } from '../controllers/tasks.controller';
 import { getJsonObject, logout } from '../functions/functions';
 import { estilos } from '../styles/styles';
@@ -76,15 +78,15 @@ export default function Home() {
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text style={estilos.title}>Lista de Tareas</Text>
-                <TouchableOpacity onPress={logout}>
-                    <Text>Cerrar sesión</Text>
+                <TouchableOpacity onPress={logout} style={{ flexDirection: 'row', alignItems: 'center', gap: 4, borderWidth: 1, borderColor: '#a1a1a1', paddingHorizontal: 4, borderRadius: 8 }}>
+                    <Text style={{ color: '#a1a1a1' }}>Cerrar sesión</Text>
+                    <Octicons name="sign-out" size={16} color="#a1a1a1" />
                 </TouchableOpacity>
             </View>
 
             <View style={{ height: 24 }}></View>
 
             <ScrollView>
-
 
                 {
                     allTasks && allTasks.length ? allTasks.map(task => (
@@ -141,13 +143,16 @@ export default function Home() {
 
             </ScrollView>
 
-            <TouchableOpacity style={{ backgroundColor: '#34a379ff', height: 32, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }} onPress={() => router.push({ pathname: 'crear-tarea', params: { userId: userData.id, userName: userData.name } })} >
+            <TouchableOpacity style={{ flexDirection: 'row', gap: 8, backgroundColor: '#34a379ff', height: 32, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }} onPress={() => router.push({ pathname: 'crear-tarea', params: { userId: userData.id, userName: userData.name } })} >
                 {/* <Link href={`crear-tarea?userId=${userData.id}&userName=${userData.name}`} style={{ color: 'white' }}> */}
+                <Octicons name="file-added" size={18} color="white" />
                 <Text style={{ color: 'white' }}>
                     Añadir Tarea
                 </Text>
                 {/* </Link> */}
             </TouchableOpacity>
+
+            <BR />
 
             {/* <MenuModal isModalVisible={isModalOpen} setIsModalVisible={setIsModalOpen} /> */}
 

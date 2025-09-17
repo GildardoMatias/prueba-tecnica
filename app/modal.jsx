@@ -17,10 +17,12 @@ export default function MenuModal({ isModalVisible, setIsModalVisible }) {
           </View>
 
           <TouchableOpacity>
-            <Text>Editar</Text>
+            <Text>Editar vvvv⚠️ Warning Emoji | Meaning, Copy And Paste🚨⚠️📢❗ | Copy & Paste </Text>
           </TouchableOpacity>
           <TouchableOpacity>
-            <Text>Borrar</Text>
+            <Text> vvvvt is ❌ Borrar ✅ Botón De Marca De Verificación Emoji: Significado y Uso
+ ✔️ Check Mark Emoji | Meaning, Copy And Paste
+</Text>
           </TouchableOpacity>
 
 
