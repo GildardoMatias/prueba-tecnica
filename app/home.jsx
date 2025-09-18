@@ -30,7 +30,7 @@ export default function Home() {
                 break;
             case 'delete':
                 // Lógica para eliminar
-                Alert.alert('Eliminar', `¿Eliminar tarea ${task.id}?`, [
+                Alert.alert('⚠️  Advertencia', `¿Eliminar "${task.title}"?`, [
                     { text: 'Cancelar', onPress: () => { }, style: 'cancel' },
                     { text: 'Eliminar', onPress: () => { _deleteTask(task.id) }, style: 'default' }
                 ]);
@@ -78,19 +78,19 @@ export default function Home() {
 
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Text style={estilos.title}>Lista de Tareas</Text>
-                <TouchableOpacity onPress={logout} style={{ flexDirection: 'row', alignItems: 'center', gap: 4, borderWidth: 1, borderColor: '#a1a1a1', paddingHorizontal: 4, borderRadius: 8 }}>
-                    <Text style={{ color: '#a1a1a1' }}>Cerrar sesión</Text>
-                    <Octicons name="sign-out" size={16} color="#a1a1a1" />
+                <TouchableOpacity onPress={logout} style={{ flexDirection: 'row', alignItems: 'center', gap: 4, borderWidth: 1, borderColor: '#a1a1a1', paddingHorizontal: 8, borderRadius: 8 }}>
+                    <Text style={{ color: '#a1a1a1', fontSize: 14 }}>Cerrar sesión</Text>
+                    <Octicons name="sign-out" size={14} color="#a1a1a1" />
                 </TouchableOpacity>
             </View>
 
             <View style={{ height: 24 }}></View>
 
-            <ScrollView>
+            <ScrollView style={{borderRadius: 5}}>
 
                 {
                     allTasks && allTasks.length ? allTasks.map(task => (
-                        <View style={{ marginBottom: 16, backgroundColor: 'white', padding: 10, borderRadius: 12 }} key={task.id}>
+                        <View style={{ marginBottom: 16, backgroundColor: 'white', padding: 12, borderRadius: 12, gap: 4 }} key={task.id}>
 
                             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                                 <Text style={estilos.title}>{task.title}</Text>
@@ -104,7 +104,7 @@ export default function Home() {
                                 <View style={{
                                     position: 'absolute',
                                     right: 0,
-                                    top: 25,
+                                    top: 30,
                                     backgroundColor: 'white',
                                     borderRadius: 8,
                                     padding: 5,
@@ -120,20 +120,20 @@ export default function Home() {
                                         style={{ padding: 10 }}
                                         onPress={() => handleMenuOption('edit', task)}
                                     >
-                                        <Text>✏️ Editar</Text>
+                                        <Text style={{ fontSize: 16 }}>✏️  Editar</Text>
                                     </TouchableOpacity>
                                     <TouchableOpacity
                                         style={{ padding: 10 }}
                                         onPress={() => handleMenuOption('delete', task)}
                                     >
-                                        <Text>🗑️ Eliminar</Text>
+                                        <Text style={{ fontSize: 16 }}>🗑️  Eliminar</Text>
                                     </TouchableOpacity>
                                 </View>
                             )}
 
 
-                            <Text>{task.description}</Text>
-                            <Text style={{ alignSelf: 'flex-end' }}>{new Date(task.createdAt).toLocaleDateString('es-MX')}</Text>
+                            <Text style={{ textAlign: 'justify' }}>{task.description}</Text>
+                            <Text style={{ alignSelf: 'flex-end', fontSize: 11 }}>{new Date(task.createdAt).toLocaleDateString('es-MX')}</Text>
 
                         </View>
                     )) :
@@ -142,8 +142,8 @@ export default function Home() {
 
 
             </ScrollView>
-
-            <TouchableOpacity style={{ flexDirection: 'row', gap: 8, backgroundColor: '#34a379ff', height: 32, justifyContent: 'center', alignItems: 'center', borderRadius: 10 }} onPress={() => router.push({ pathname: 'crear-tarea', params: { userId: userData.id, userName: userData.name } })} >
+            <BR h={5}/>
+            <TouchableOpacity style={estilos.iconButton} onPress={() => router.push({ pathname: 'crear-tarea', params: { userId: userData.id, userName: userData.name } })} >
                 {/* <Link href={`crear-tarea?userId=${userData.id}&userName=${userData.name}`} style={{ color: 'white' }}> */}
                 <Octicons name="file-added" size={18} color="white" />
                 <Text style={{ color: 'white' }}>
@@ -151,6 +151,7 @@ export default function Home() {
                 </Text>
                 {/* </Link> */}
             </TouchableOpacity>
+
 
             <BR />
 

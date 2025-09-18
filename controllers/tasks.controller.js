@@ -17,7 +17,7 @@ export const getAllTasks = async (group_id) => {
 
 // Obtener la tareas de un usuario
 export const getTasksByUserId = async (userId) => {
-  const allRows = await db.getAllAsync('SELECT * FROM tasks WHERE userId = ?', userId);
+  const allRows = await db.getAllAsync('SELECT * FROM tasks WHERE userId = ? ORDER BY createdAt DESC', userId);
   console.log('allRows', allRows)
   return allRows;
 }

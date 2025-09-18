@@ -2,7 +2,7 @@ import Feather from '@expo/vector-icons/Feather'
 import Octicons from '@expo/vector-icons/Octicons'
 import { Link, useRouter } from 'expo-router'
 import { useState } from 'react'
-import { Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { BR } from '../components/widgets'
 import { getUserByCredentials } from '../controllers/users.controller'
@@ -18,8 +18,13 @@ export default function InicioSesion() {
     const [pass, setPass] = useState('')
 
     const login = async () => {
+        if (!email || !pass) {
+            Alert.alert('⚠️  Advertencia', 'Ingrese correo y contraseña')
+            return
+        }
+
         const user = await getUserByCredentials(email, pass)
-        if (!user) alert('Credenciales no validas')
+        if (!user) Alert.alert('⚠️  Advertencia', 'Credenciales no validas')
         else {
             setUserFound(user)
 
@@ -48,36 +53,35 @@ export default function InicioSesion() {
                     <View style={estilos.container}>
 
                         <Image source={require('../assets/images/lock.jpg')} style={{ width: 250, height: 250, borderRadius: 12, alignSelf: 'center' }} />
-                        <BR />
+                        <BR h={28} />
 
                         <Text style={estilos.title}>Inicio de sesión</Text>
-                        <BR />
+                        <BR h={12} />
 
-
-                        <Feather name="mail" size={20} color="black" />
-                        <Text style={estilos.label}>Correo electronico</Text>
+                        <View style={estilos.rowLabel}>
+                            <Feather name="mail" size={20} color="black" />
+                            <Text style={estilos.label}>Correo electronico</Text>
+                        </View>
                         <TextInput placeholder='ejemplo@direccion.com' value={email} onChangeText={setEmail} keyboardType='email-address' style={estilos.input} />
                         <BR />
 
-                        <Octicons name="key" size={20} color="black" />
-                        <Text style={estilos.label}>Contraseña</Text>
+                        <View style={estilos.rowLabel}>
+                            <Octicons name="key" size={20} color="black" />
+                            <Text style={estilos.label}>Contraseña</Text>
+                        </View>
                         <TextInput placeholder='Contraseña' value={pass} onChangeText={setPass} style={estilos.input} />
                         <BR />
 
-                        <TouchableOpacity onPress={login} style={estilos.button}>
+                        <TouchableOpacity onPress={login} style={estilos.iconButton}>
                             <Text style={estilos.buttonText}>Iniciar Sesión</Text>
                         </TouchableOpacity>
 
-                        {/* <TouchableOpacity onPress={() => router.push('register')}>
-<Text>
-    
-</Text>
-                </TouchableOpacity> */}
                         <View style={{ justifyContent: 'center', alignItems: 'center', height: 42 }}>
                             <Link href='register' style={{ color: '#059e4aff' }}>
                                 Registrarse
                             </Link>
                         </View>
+
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>

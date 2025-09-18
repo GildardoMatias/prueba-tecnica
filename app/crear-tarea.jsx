@@ -58,14 +58,14 @@ export default function CrearTarea() {
 
             <BR />
 
-            <TouchableOpacity onPress={saveTask} style={estilos.button}>
-              <Feather name="save" size={24} color="white" />
+            <TouchableOpacity onPress={saveTask} style={estilos.iconButton}>
+              <Feather name="save" size={18} color="white" />
               <Text style={estilos.buttonText}>Guardar</Text>
             </TouchableOpacity>
 
             <BR h={5} />
 
-            <TouchableOpacity onPress={() => router.back()} style={{...estilos.secButton, flexDirection: 'row', gap: 8, justifyContent: 'center', alignItems: 'center' }}>
+            <TouchableOpacity onPress={() => router.back()} style={estilos.secButton}>
               <MaterialCommunityIcons name="cancel" size={20} color="black" />
               <Text>Cancelar</Text>
             </TouchableOpacity>
