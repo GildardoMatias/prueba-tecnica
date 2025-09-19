@@ -15,4 +15,6 @@ Aplicación de registro de tareas, desarrollada por Angel Gildardo Matías Rodri
    ```bash
    npx expo start
    ```
+3. Cambiar a Expo Go presionando la tecla 's'
 
+4. Escanear el código desde iPhone o Android con la aplicación Expo Go
