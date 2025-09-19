@@ -45,7 +45,6 @@ export default function Register() {
                 Alert.alert('❌  Error', 'No se pudo crear el usuario')
 
         } catch (error) {
-            console.log(error)
             Alert.alert('Error', 'El correo ya existe')
         }
 

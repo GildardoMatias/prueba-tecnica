@@ -71,7 +71,6 @@ export default function Home() {
     // Cargar tareas del usuario cada vez que se enfoca la pantalla (Home)
     useFocusEffect(
         useCallback(() => {
-            console.log('----- Focused -----------------')
             if (userData && userData.id)
                 getTasksByUserId(userData.id).then(setAllTasks)
         }, []),
