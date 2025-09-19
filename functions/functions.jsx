@@ -3,6 +3,7 @@ import { useRouter } from "expo-router";
 
 const router = useRouter()
 
+// Función para cerrar sesión, eliminando los datos del usuario del almacenamiento interno y redirigiendo a la pantalla de inicio de sesión
 export const logout = async () => {
     try {
         await AsyncStorage.removeItem('userData')
@@ -12,6 +13,7 @@ export const logout = async () => {
     }
 }
 
+// Función para almacenar un objeto JSON en el almacenamiento interno
 export async function storeJSON(jsonObject, key) {
     try {
         const jsonValue = JSON.stringify(jsonObject);
@@ -22,6 +24,7 @@ export async function storeJSON(jsonObject, key) {
     }
 }
 
+// Función para obtener un objeto JSON desde el almacenamiento interno
 export async function getJsonObject(key) {
     try {
         const jsonValue = await AsyncStorage.getItem(key);

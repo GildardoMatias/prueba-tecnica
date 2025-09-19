@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 
-export const estilos = StyleSheet.create({
+// Estilos globales de la aplicación
+export const styles = StyleSheet.create({
     mainContainer: { flex: 1, paddingHorizontal: 18, backgroundColor: '#ddefe8' },
     container: { flex: 1, justifyContent: 'center' },
     input: { backgroundColor: 'white', borderRadius: 6, marginVertical: 4 },

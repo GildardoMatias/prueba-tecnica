@@ -1,6 +1,11 @@
 import * as SQLite from 'expo-sqlite';
 
-// const db = await SQLite.openDatabaseAsync('tasks.db');
+// ------------------------------------------------- //
+// Configuración y creación de la base de datos SQLite
+// Define la estructura de las tablas "users" (Usuarios) y "tasks" (Tareas) si no existen
+// ------------------------------------------------- //
+
+
 const db = SQLite.openDatabaseSync('tasks');
 
 export const createTables = async () => {
@@ -23,7 +28,7 @@ export const createTables = async () => {
 
     CREATE INDEX IF NOT EXISTS idx_tasks_userId ON tasks(userId);
         `);
-    console.log('Initializing DB corrreact -----')
+    
 }
 
 export default db;

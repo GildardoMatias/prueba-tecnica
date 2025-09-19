@@ -6,25 +6,33 @@ import { Alert, Image, KeyboardAvoidingView, ScrollView, Text, TextInput, Toucha
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { BR } from '../components/widgets'
 import { insertTask, updateTask } from '../controllers/tasks.controller'
-import { estilos } from '../styles/styles'
+import { styles } from '../styles/styles'
+
+// ----------------------------------------------------------------- //
+// Pantalla para crear o editar una tarea                             //
+// Permite ingresar título y descripción de la tarea                 //
+// Incluye validaciones básicas y manejo de errores                  //
+// ----------------------------------------------------------------- //
 
 export default function CrearTarea() {
-  const params = useLocalSearchParams();
-  const { userId, userName, id: taskId, title = "", description = "" } = params;
-
   const router = useRouter()
+
+  const params = useLocalSearchParams();
+  const { userId, id: taskId, title = "", description = "" } = params;
+
 
   const [_title, setTitle] = useState(title)
   const [_description, setDescription] = useState(description)
 
   const saveTask = async () => {
 
+    // Validar que se hayan ingresado titulo y descripcion de la tarea
     if(!_title || !_description){
       Alert.alert('Advertencia','Por favor complete todos los campos') 
       return
     }
 
-    // Si hay title y description en params, se está editando
+    // Si se ha proporcionado un ID de tarea, actualizar la tarea existente; de lo contrario, crear una nueva tarea
     if (taskId) {
       const result = await updateTask(taskId, _title, _description)
       if (result.changes === 1) router.replace('home')
@@ -34,11 +42,14 @@ export default function CrearTarea() {
     }
   }
 
+  // Renderizar la interfaz de usuario
+  // Pantalla para crear o editar una tarea
+  // Incluye campos para título y descripción, y botones para guardar o cancelar
   return (
-    <SafeAreaView style={estilos.mainContainer}>
+    <SafeAreaView style={styles.mainContainer}>
       <View style={{ backgroundColor: '#ddefe8', alignContent: 'space-between', flex: 1 }}>
 
-        <Text style={estilos.title}>{taskId ? 'Editar' : 'Crear nueva'} Tarea</Text>
+        <Text style={styles.title}>{taskId ? 'Editar' : 'Crear nueva'} Tarea</Text>
 
         <KeyboardAvoidingView style={{ flex: 1 }}
           behavior='height'
@@ -48,24 +59,24 @@ export default function CrearTarea() {
             <Image source={require('../assets/images/note.jpg')} style={{ width: 250, height: 250, borderRadius: 12, alignSelf: 'center' }} />
             <BR h={60} />
 
-            <Text style={estilos.label}>Título</Text>
-            <TextInput style={estilos.input} placeholder='Titulo' value={_title} onChangeText={setTitle} />
+            <Text style={styles.label}>Título</Text>
+            <TextInput style={styles.input} placeholder='Titulo' value={_title} onChangeText={setTitle} />
 
             <BR />
 
-            <Text style={estilos.label}>Descripcion</Text>
-            <TextInput style={estilos.input} numberOfLines={3} placeholder='Descripcion' value={_description} onChangeText={setDescription} />
+            <Text style={styles.label}>Descripcion</Text>
+            <TextInput style={styles.input} numberOfLines={3} placeholder='Descripcion' value={_description} onChangeText={setDescription} />
 
             <BR />
 
-            <TouchableOpacity onPress={saveTask} style={estilos.iconButton}>
+            <TouchableOpacity onPress={saveTask} style={styles.iconButton}>
               <Feather name="save" size={18} color="white" />
-              <Text style={estilos.buttonText}>Guardar</Text>
+              <Text style={styles.buttonText}>Guardar</Text>
             </TouchableOpacity>
 
             <BR h={5} />
 
-            <TouchableOpacity onPress={() => router.back()} style={estilos.secButton}>
+            <TouchableOpacity onPress={() => router.back()} style={styles.secButton}>
               <MaterialCommunityIcons name="cancel" size={20} color="black" />
               <Text>Cancelar</Text>
             </TouchableOpacity>
